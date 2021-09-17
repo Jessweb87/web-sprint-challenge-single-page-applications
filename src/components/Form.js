@@ -1,117 +1,102 @@
+// import { Link, useRouteMatch } from 'react-router-dom'
 import React from 'react';
-// import { useHistory  } from 'react-router-dom';
 
 export default function Form(props) {
-    // const history = useHistory()
-
-    const {
-        values,
-        change,
-        submit,
-        disabled,
-        errors,
-    } = props;
-
-    const onSubmit = (evt) => {
+    const { values, submit, change, errors, disabled } = props
+    const onSubmit = evt => {
         evt.preventDefault()
         submit()
-    };
+    }
 
-    const onChange = (evt) => {
-        const { name, value, checked, type } =evt.target;
-        const valueToUse = type === 'checkbox' ? checked : value;
-        change(name, valueToUse);
-    };
-
-    return(
-        <form classname='form-container' onSubmit={onSubmit}>
-            <div className='form-group submit'>
-                <h2>Build Your Own Pizza</h2>
-                <button disabled={disabled}>submit</button>
-
-             <div className='errors'>
-                    <div>{errors.name}</div>
-                    <div>{errors.size}</div>
+    const onChange = event => {
+        const { name, value, type, checked } = event.target
+        const valueToUse = type === 'checkbox' ? checked : value
+        change(name, valueToUse)
+    }
+    return (
+        <div className='pizzaFormDiv'>
+            <h1>Create Your Masterpiece Pizza!</h1>
+            <img src="Assets/Pizza.jpg" alt=''></img>
+            <form onSubmit={onSubmit}>
+                <div className='errors'>
+                    <p>{errors.name}</p>
+                    <p>{errors.size}</p>
                 </div>
 
-                <div className='form-group inputs'>
-                    <h4>Pizza Details</h4>
+                <label>
+                    <h3>Name Here!</h3>
+                    <input
+                        name='name'
+                        type='text'
+                        value={values.name}
+                        onChange={onChange}
+                    />
+                </label>
 
-                    <label>Name&nbsp;
-                        <input
-                            value={values.name}
-                            onChange={onChange}
-                            name='name'
-                            type='text'
-                        />
-                    </label>
+                <label>
+                    <h3>Masterpiece Pizza Size!</h3>
+                    <select
+                        onChange={onChange}
+                        value={values.size}
+                        name='size'>
+                        <option value=''>---Size---</option>
+                        <option value='personal'>Personal</option>
+                        <option value='small'>Small</option>
+                        <option value='medium'>Medium</option>
+                        <option value='extra large'>Extra Large</option>
+                    </select>
+                </label>
 
-                    <label>Size
-                        <select
-                            onChange={onChange}
-                            value={values.size}
-                            name='size'
-                        >
-                            <option value=''>-- Select a pizza size --</option>
-                            <option value='small'>Small</option>
-                            <option value='medium'>Medium</option>
-                            <option value='large'>Large</option>
-                            <option value='x-large'>X-Large</option>
-                        </select>
-                    </label>
-                </div>
-
-                <div className='form-group checkboxes'>
-                    <h4>Toppings</h4>
-
+                <label>
+                    <h3>Masterpiece Pizza Toppings!</h3>
+                    <h4>Up to 4 per Masterpiece Pizza</h4>
                     <label>Pepperoni
-                        <input
-                            type="checkbox"
-                            name="pepperoni"
-                            checked={values.pepperoni}
+                    <input
+                            type='checkbox'
+                            name='pepperoni'
                             onChange={onChange}
                         />
                     </label>
 
-                    <label>Sausage
-                        <input
-                            type="checkbox"
-                            name="sausage"
-                            checked={values.sausage}
+                    <label>Olives
+                    <input
+                            type='checkbox'
+                            name='olives'
                             onChange={onChange}
                         />
                     </label>
 
-                    <label>Mushroom
-                        <input
-                            type="checkbox"
-                            name="mushroom"
-                            checked={values.mushroom}
+                    <label>Jalapenos
+                    <input
+                            type='checkbox'
+                            name='jalapenos'
                             onChange={onChange}
                         />
                     </label>
 
-                    <label>Onion
-                        <input
-                            type="checkbox"
-                            name="onion"
-                            checked={values.onion}
+                    <label>Mushrooms
+                    <input
+                            type='checkbox'
+                            name='mushrooms'
                             onChange={onChange}
                         />
                     </label>
-                </div>
+                </label>
 
-                <div className='form-group inputs'>
-                    <label>Instructions&nbsp;
-                        <input
-                            value={values.instructions}
-                            onChange={onChange}
-                            name='instructions'
-                            type='text'
-                        />
-                    </label>
-                </div>
-            </div>
-        </form >
-    );
-}; 
+                <label>
+                    <h3>Masterpiece Pizza Special Instructions</h3>
+                    <input
+                        style={{ width: '90%', marginLeft: '4%' }}
+                        name='instructions'
+                        type='text'
+                        onChange={onChange}
+                        value={values.instructions}
+                    />
+                </label>
+
+                <button id="submit" disabled={disabled}>Order Masterpiece Pizza!</button>
+
+            </form>
+        </div>
+    )
+}
