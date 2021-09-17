@@ -35,8 +35,8 @@ export default function App() {
   const getFoods = () => {
     axios
     .get(`https://reqres.in/api/pizza`)
-    .then((res) => {
-      setFoods(res.data)
+    .then(res => {
+      setFoods(res.data);
     })
     .catch(err => console.error(err))
   } 
@@ -44,12 +44,13 @@ export default function App() {
   const postNewFood = (newFood) => {
     axios
     .post(`https://reqres.in/api/pizza`, newFood)
-    .then((res) => {
+    .then(res => {
       setFoods([res.data, ...foods])
-      setFormValues(initialFormValues)
+      setFormValues(initialFormValues);
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(err => {
+      console.error(err)
+      setFormValues(initialFormValues);
     })
   }
 
@@ -92,9 +93,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    schema.isValid(formValues).then((valid) => {
-      setDisabled(!valid)
-    })
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
   }, [formValues])
 
   return (
